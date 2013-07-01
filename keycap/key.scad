@@ -9,11 +9,15 @@ c_depth = 6;                // connector depth
 c_space = 4;                // height of hollow inside
 c_inset = .75;              // distance connector start to keycap base
 
+//cut out size
+cut_h=100;
+cut_dia=1.2;
+
 // decoration
 obj = "skull.stl";          // decoration object
-obj_pos = [0,-1,10];        // decoration offset
+obj_pos = [0,2.5,10];        // decoration offset
 obj_scale = [1.18,1.1,1.1]; // decoration scale
-obj_rot = [3,0,0];          // decoration rotation
+obj_rot = [30,0,0];          // decoration rotation
 
 // keycap shape
 head_tilt = 3;              // rotation of top around x-axis
@@ -45,7 +49,11 @@ module connector()
         cube([c_dia+c_corr,c_horiz+c_corr,c_depth+.1], center=true );
     }
 }
-
+//cylinder cutout
+module cutout()
+{
+	cylinder( h=cut_h, r=cut_dia );
+}
 // create the hollow key with decoration
 module key()
 {
@@ -82,5 +90,12 @@ scale(key_scale) difference()
     }
     
 	connector();
+	difference(){
+	//	cutout();
+		translate([3,2.6,0]) cutout();
+	}
+	difference(){
+	translate([-3,2.6,0]) cutout();
+	}
 	translate([0,0,-50-c_inset]) cube([100,100,100], center=true);
 }
