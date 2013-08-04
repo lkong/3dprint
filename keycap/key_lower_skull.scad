@@ -10,8 +10,9 @@ c_space = 4;                // height of hollow inside
 c_inset = .75;              // distance connector start to keycap base
 
 //cut out size
-cut_h=100;
-cut_dia=1.2;
+cut_h=9;
+cut_x=1.4;
+cut_y=1;
 
 // decoration
 obj = "skull.stl";          // decoration object
@@ -49,10 +50,17 @@ module connector()
         cube([c_dia+c_corr,c_horiz+c_corr,c_depth+.1], center=true );
     }
 }
-//cylinder cutout
+module ovalTube(height, rx, ry, wall, center = false) {
+  difference() {
+    scale([1, ry/rx, 1]) cylinder(h=height, r=rx, center=center);
+    scale([(rx-wall)/rx, (ry-wall)/rx, 1]) cylinder(h=height, r=rx, center=center);
+  }
+}
+
+//oval tube cutout
 module cutout()
 {
-	cylinder( h=cut_h, r=cut_dia );
+	ovalTube( height=cut_h, rx=cut_x, ry=cut_y, wall=1.4 );
 }
 // create the hollow key with decoration
 module key()
@@ -92,10 +100,10 @@ scale(key_scale) difference()
 	connector();
 	difference(){
 	//	cutout();
-		translate([3,-3.6,0]) cutout();
+		translate([3.1,-3.7,0]) cutout();
 	}
 	difference(){
-	translate([-3,-3.6,0]) cutout();
+	translate([-3.1,-3.7,0]) cutout();
 	}
 	translate([0,0,-50-c_inset]) cube([100,100,100], center=true);
 }
