@@ -1,7 +1,7 @@
 // Row 4 decorated Cherry MX key
 
 // dimensions Cherry MX connector
-c_corr = .4;                // tolerance
+c_corr = .2;                // tolerance
 c_horiz = 1.1;              // horizontal bar width
 c_vert = 1.0;               // vertical bar width
 c_dia = 4;                  // cross width
@@ -26,7 +26,7 @@ head_pos = 2.25;            // keycap top y-offset
 head_height = 11;           // z-offset of keycap top from the bottom of the keycap
 cutoff = 6.5;               // cut keycap here to make room for decoration
                             // must be bigger than c_space + c_corr
-key_scale = [1.02,1.02,1.02]; // overall scale
+key_scale = [1.01,1.01,1.01]; // overall scale
 
 // stuff
 $fn = 64;
@@ -50,6 +50,8 @@ module connector()
         cube([c_dia+c_corr,c_horiz+c_corr,c_depth+.1], center=true );
     }
 }
+
+//the cut out for eyes
 module ovalTube(height, rx, ry, wall, center = false) {
   difference() {
     scale([1, ry/rx, 1]) cylinder(h=height, r=rx, center=center);
@@ -62,6 +64,8 @@ module cutout()
 {
 	ovalTube( height=cut_h, rx=cut_x, ry=cut_y, wall=1.4 );
 }
+
+
 // create the hollow key with decoration
 module key()
 {
@@ -94,10 +98,11 @@ scale(key_scale) difference()
     union() 
     { 
         key();
-        cylinder( h=c_space+c_corr, r=(c_dia+1+c_corr)/2 );
+        cylinder( h=c_space+c_corr, r=(c_dia+c_corr)/2 );
     }
     
 	connector();
+
 	difference(){
 	//	cutout();
 		translate([3.1,-3.7,0]) cutout();
