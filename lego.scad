@@ -25,7 +25,7 @@ head_pos = 2.25;            // keycap top y-offset
 head_height = 11;           // z-offset of keycap top from the bottom of the keycap
 cutoff = 6.5;               // cut keycap here to make room for decoration
                             // must be bigger than c_space + c_corr
-key_scale = [1.0,1.00,1.00]; // overall scale
+key_scale = [1.05,1.05,1.05]; // overall scale
 
 // stuff
 $fn = 64;
@@ -83,28 +83,26 @@ module key()
 }
 
 // combine key, pin and connector. cleanup below the key
-scale(key_scale) difference()
-{
-union()
-{
+scale(key_scale) 
 difference()
 {
-
-lego();
-//cube([1,1,2]);
-}
-	scale([1,1,2])
-	difference()
+	
+	union()
 	{
-	cylinder( h=c_space+c_corr, r=(c_dia+c_corr+1.5)/2 );
-	connector();
+		lego();
+		scale([1,1,2])
+			difference()
+			{
+				cylinder( h=c_space+c_corr, r=(c_dia+c_corr+1.5)/2 );
+				connector();
+			}
+	}
+	translate([-3,2.2,-1])
+		cube([6,4.49,9.39]);
+	translate([-3,-6.5,-1])
+		cube([6,4.29,9.39]);
+	//translate([-5,-2.5,0])
+		//cube([10,10,8]);	
 }
-}
-//union()
-//{
-	//cylinder( h=c_space+c_corr, r=(c_dia+c_corr+1.5)/2 );				
-//}
-//connector();
-//translate([0,0,-50-c_inset]) cube([100,100,100], center=true);
-}
+
 
