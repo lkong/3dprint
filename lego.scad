@@ -97,9 +97,9 @@ difference()
 				connector();
 			}
 	}
-	translate([-3,2.2,-1])
+	translate([-3,2.0,-1])
 		cube([6,4.49,9.39]);
-	translate([-3,-6.5,-1])
+	translate([-3,-6.3,-1])
 		cube([6,4.29,9.39]);
 	//translate([-5,-2.5,0])
 		//cube([10,10,8]);	
