@@ -25,7 +25,7 @@ head_pos = 2.25;            // keycap top y-offset
 head_height = 11;           // z-offset of keycap top from the bottom of the keycap
 cutoff = 6.5;               // cut keycap here to make room for decoration
                             // must be bigger than c_space + c_corr
-key_scale = [1.05,1.05,1.05]; // overall scale
+key_scale = [1.03,1.03,1.03]; // overall scale
 
 // stuff
 $fn = 64;
@@ -94,13 +94,16 @@ difference()
 			difference()
 			{
 				cylinder( h=c_space+c_corr, r=(c_dia+c_corr+1.5)/2 );
+				scale([1.1,1.1,1.1])
 				connector();
 			}
 	}
 	translate([-3,2.0,-1])
-		cube([6,4.49,9.39]);
+		cube([6,4.49,7.39]);
 	translate([-3,-6.3,-1])
-		cube([6,4.29,9.39]);
+		cube([6,4.29,7.39]);
+	translate([-20,-20,-0.5])
+		cube([40,40,3]);
 	//translate([-5,-2.5,0])
 		//cube([10,10,8]);	
 }
